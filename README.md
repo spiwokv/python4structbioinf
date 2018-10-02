@@ -167,11 +167,11 @@ To render `final.pov` in each step add a lines:
 ```{python}
 import os
 ```
-and
+at the begining and
 ```{python}
   os.system("povray +H600 +W600 +A0.3 -Of"+si+".png -D final.pov")
 ```
-So the final code looks like:
+into the loop, so that the final code looks like:
 ```{python}
 import os
 zacatek = open("vmdscene1b.pov", "r").readlines()
@@ -187,6 +187,9 @@ for i in range(360):
   novy.close()
   os.system("povray +H600 +W600 +A0.3 -Of"+si+".png -D final.pov")
 ```
+
+Now run it (it may take a while). This will generate 360 files `f000.png` to `f359.png`.
+
 
 
 
