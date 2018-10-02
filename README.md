@@ -69,8 +69,7 @@ loop. The command `while` is executed while the condition (`len(si)<3`) is true.
 etc.
 
 Now let's have a look at something different. We will show how to make a movie with a rotating protein
-molecule. It is possible to open the molecule in a PDB format in VMD
-
+molecule. It is possible to open the molecule in a PDB format in [VMD](https://www.ks.uiuc.edu/Research/vmd/)
 and save the scene in some format suitable for rendering.
 
 There are many programs for rendering scenes. For some reason the program 
@@ -189,6 +188,11 @@ for i in range(360):
 ```
 
 Now run it (it may take a while). This will generate 360 files `f000.png` to `f359.png`.
+
+Finally, you can make movie from images in mencoder by typing:
+```
+mencoder -ovc lavc -lavcopts vcodec=mpeg4:vpass=1:vbitrate=1620000:mbd=2:keyint=132:v4mv:vqmin=3:vlelim=-4:vcelim=7:lumi_mask=0.07:dark_mask=0.10: naq:vqcomp=0.7:vqblur=0.2:mpeg_quant -mf type=png:fps=25 -nosound -o test.avi mf://f*.png 
+```
 
 
 
