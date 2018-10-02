@@ -23,7 +23,7 @@ print 1+1
 Ctrl+D
 ```
 We will get a file `program.py` with a single line:
-```{python}
+```python
 print 1+1
 ```
 This can be executed by:
@@ -33,7 +33,7 @@ python program.py
 The program will calculate 1+1 and print the result. 
 
 You can edit the program to:
-```{python}
+```python
 for i in range(10):
   print i
 ```
@@ -56,7 +56,7 @@ ways how to do that, for example using regular expressions, but we will show thi
 way to learn some Python. For this we will take the value of `i` and we will store it as a string
 in the variable `si` using `si = str(i)`. Next, we will add zeros in front of si untill it reaches
 the length of the string equal to 3. Here we go:
-```{python}
+```python
 for i in range(10): 
   si = str(i) 
   while len(si)<3: 
@@ -130,7 +130,7 @@ system before rotation and translate back after rotation.
 
 We will not rotate it by 90 degrees, but instead by 1, 2, 3 ... 360 degrees. To do so, write a Python
 script:
-```{python}
+```python
 zacatek = open("vmdscene1b.pov", "r").readlines()
 for i in range(360):
   si = str(i)
@@ -146,12 +146,12 @@ for i in range(360):
 The command `open` opens the file. The option `"r"` opens the file for reading and `.readlines()`
 separates the file into infdividual lines. The option `"w"` opens the file for writing.
 The code:
-```{python}
-  for line in zacatek:
+```python
+for line in zacatek:
     novy.write(line)
 ```
 rewrites the content of `vmdscene1b.pov` into a newly created file `final.pov`. After that the code:
-```{python}
+```python
   novy.write("rotate <0,"+str(i)+",0> \n")
   novy.write("}\n")
 ```
@@ -163,15 +163,15 @@ rotate <0,0,0>
 or `rotate <0,1,0>` etc. Finally, `novy.close()` closes the file `final.pov`.
 
 To render `final.pov` in each step add a lines:
-```{python}
+```python
 import os
 ```
 at the begining and
-```{python}
+```python
   os.system("povray +H600 +W600 +A0.3 -Of"+si+".png -D final.pov")
 ```
 into the loop, so that the final code looks like:
-```{python}
+```python
 import os
 zacatek = open("vmdscene1b.pov", "r").readlines()
 for i in range(360):
