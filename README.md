@@ -39,7 +39,7 @@ for i in range(10):
 ```
 It is important to have indent of (preferably two) spaces before print.
 This will define what is in the loop. The command `range(10)` returns 10 numbers from 0 to 9.
-The line `for i in range(10):` will create a loop that is executed 10x. The value of i in the first
+The line `for i in range(10):` will create a loop that is executed 10x. The value of `i` in the first
 execution is equal to 0, in the next execution it is 1 etc. The program will therefore print 0 to 9,
 one on each line. Try it.
 
