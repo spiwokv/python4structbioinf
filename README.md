@@ -68,7 +68,8 @@ loop. The command `while` is executed while the condition (`len(si)<3`) is true.
 (when applied on a string) returns the number of characters in the string, i.e. 1 for "0", 2 for "00"
 etc.
 
-Now let's have a look at something different. 
+Now let's have a look at something different. We will show how to make a movie with a rotating protein
+molecule. It is possible to open the molecule in a PDB format in VMD
 
 There are many programs for rendering scenes. For some reason the program 
 [PoVRay](https://www.povray.org) is very popular for making molecular representations and
@@ -83,9 +84,13 @@ For a protein you can open it in some software such as
 and save it as an input file for PoVRay. Next you can render it by a command which may look
 something like:
 ```
-povray +H400 +W600 +A0.3 test.pov
+povray +H400 +W600 +A0.3 test.pov -D
 ```
 where +H and +W defines height and width, respectively, +A defines antialliasing and `test.pov`
-is the input file. This should generate a file `test.png`.
+is the input file. This should generate a file `test.png`. The option `-D` suppresses PoVRay to
+show the output image. This is usefull for rendering via ssh.
+
+
+
 
 
