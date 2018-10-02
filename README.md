@@ -71,6 +71,8 @@ etc.
 Now let's have a look at something different. We will show how to make a movie with a rotating protein
 molecule. It is possible to open the molecule in a PDB format in VMD
 
+and save the scene in some format suitable for rendering.
+
 There are many programs for rendering scenes. For some reason the program 
 [PoVRay](https://www.povray.org) is very popular for making molecular representations and
 is supported by many molecular visualization programs. PoVRay takes an input file as a scene
@@ -78,19 +80,113 @@ containing various spheres, tubes and other 3D shapes, together with their color
 Beside that you can specify locations, colors and intensities of light sources, location of
 camera, you can add fog and you can do many other things.
 
-For a protein you can open it in some software such as 
-
-
-and save it as an input file for PoVRay. Next you can render it by a command which may look
-something like:
+For a protein you can open it in VMD and save it as a `pov` file. You can find these files in
+directory `vmdscenes` of this repository. Chose some. If you like you can render it by typing:
 ```
-povray +H400 +W600 +A0.3 test.pov -D
+povray +H600 +W600 +A0.3 vmdscene1.pov -D
 ```
-where +H and +W defines height and width, respectively, +A defines antialliasing and `test.pov`
-is the input file. This should generate a file `test.png`. The option `-D` suppresses PoVRay to
-show the output image. This is usefull for rendering via ssh.
+where `+H` and `+W` defines height and width in pixels, respectively and `+A` defines antialliasing.
+This should generate a file `vmdscene1.png`. The option `-D` suppresses PoVRay to show the output image.
+This is usefull for rendering via ssh.
 
+Now edit the file you have chosen. It is a text file with understandable keywords such as sphere,
+cylinder, camera, fog etc. Now we will make a copy of the file and we will call it `vmdscene1b.pov`
+(b for begining):
+```
+cp vmdscene1.pov vmdscene1b.pov
+```
+Now edit `vmdscene1b.pov`. The code is different for different scenes, but there are common
+definitions of camera, light sources, fog and textures followed by a line:
+```
+#declare VMD_line_width=0.0020;
+```
+Make a new line right after this line and insert there a text:
+```
+#declare protein=union {
+```
+Now go to the end of the file and add new lines at the bottom:
+```
+}
+object {
+  protein
+```
+Save the file and exit. To recapitulate, we created a file with a structure:
+```
+SOME SETTINGS HERE
+#declare protein=union {
+  SOME OBJECT HERE
+}
+object {
+  protein
+```
+When we add lines:
+```
+  rotate <0,90,0>
+}
+```
+it will take the object defined between `#declare protein=union {` and `}` (called protein)
+and it will rotate it by 90 degrees around axis y. VMD makes the PoVRay files with the protein
+centered in the coordinate system so we do not have to translate it to the center of the coordinate
+system before rotation and translate back after rotation.
 
+We will not rotate it by 90 degrees, but instead by 1, 2, 3 ... 360 degrees. To do so, write a Python
+script:
+```{python}
+zacatek = open("vmdscene1b.pov", "r").readlines()
+for i in range(360):
+  si = str(i)
+  while len(si) < 3:
+    si = "0"+si
+  novy = open("final.pov", "w")
+  for line in zacatek:
+    novy.write(line)
+  novy.write("rotate <0,"+str(i)+",0> \n")
+  novy.write("}\n")
+  novy.close()
+```
+The command `open` opens the file. The option `"r"` opens the file for reading and `.readlines()`
+separates the file into infdividual lines. The option `"w"` opens the file for writing.
+The code:
+```{python}
+  for line in zacatek:
+    novy.write(line)
+```
+rewrites the content of `vmdscene1b.pov` into a newly created file `final.pov`. After that the code:
+```{python}
+  novy.write("rotate <0,"+str(i)+",0> \n")
+  novy.write("}\n")
+```
+adds lines:
+```
+rotate <0,0,0>
+}
+```
+or `rotate <0,1,0>` etc. Finally, `novy.close()` closes the file `final.pov`.
+
+To render `final.pov` in each step add a lines:
+```{python}
+import os
+```
+and
+```{python}
+  os.system("povray +H600 +W600 +A0.3 -Of"+si+".png -D final.pov")
+```
+So the final code looks like:
+```{python}
+import os
+zacatek = open("vmdscene1b.pov", "r").readlines()
+for i in range(360):
+  si = str(i)
+  while len(si) < 3:
+    si = "0"+si
+  novy = open("final.pov", "w")
+  for line in zacatek:
+    novy.write(line)
+  novy.write("rotate <0,"+str(i)+",0> \n")
+  novy.write("}\n")
+  novy.close()
+  os.system("povray +H600 +W600 +A0.3 -Of"+si+".png -D final.pov")
+```
 
 
 
