@@ -51,10 +51,11 @@ We can add `i` values not as numbers but as strings. To do this we can convert t
 by function `str` as `str(i)`. If you replace `print i+i` by `print str(i)+str(i)` the program will
 print 00, 11, ... 99.
 
-Now we will show how to make strings 00, 01, ... 09 or even 000, 001, ... 999.
-For this we will take the value of `i` and we will store it as a string in the variable `si` using
-`si = str(i)`. Next, we will add zeros in front of si untill it reaches the length of the string
-equal to 3. Here we go:
+Now we will show how to make strings 00, 01, ... 09 or even 000, 001, ... 999. There are more elegant
+ways how to do that, for example using regular expressions, but we will show this in less elegant
+way to learn some Python. For this we will take the value of `i` and we will store it as a string
+in the variable `si` using `si = str(i)`. Next, we will add zeros in front of si untill it reaches
+the length of the string equal to 3. Here we go:
 ```{python}
 for i in range(10): 
   si = str(i) 
