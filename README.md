@@ -148,7 +148,7 @@ separates the file into infdividual lines. The option `"w"` opens the file for w
 The code:
 ```python
 for line in zacatek:
-    novy.write(line)
+  novy.write(line)
 ```
 rewrites the content of `vmdscene1b.pov` into a newly created file `final.pov`. After that the code:
 ```python
