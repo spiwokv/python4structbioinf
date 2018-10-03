@@ -191,7 +191,7 @@ Now run it (it may take a while). This will generate 360 files `f000.png` to `f3
 
 Finally, you can make movie from images in mencoder by typing:
 ```
-mencoder -ovc lavc -lavcopts vcodec=mpeg4:vpass=1:vbitrate=1620000:mbd=2:keyint=132:v4mv:vqmin=3:vlelim=-4:vcelim=7:lumi_mask=0.07:dark_mask=0.10: naq:vqcomp=0.7:vqblur=0.2:mpeg_quant -mf type=png:fps=25 -nosound -o test.avi mf://f*.png 
+mencoder -ovc lavc -lavcopts vcodec=mpeg4:vpass=1:vbitrate=1620000:mbd=2:keyint=132:v4mv:vqmin=3:vlelim=-4:vcelim=7:lumi_mask=0.07:dark_mask=0.10:naq:vqcomp=0.7:vqblur=0.2:mpeg_quant -mf type=png:fps=25 -nosound -o test.avi mf://f*.png 
 ```
 
 
