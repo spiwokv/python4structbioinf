@@ -14,7 +14,7 @@ git clone https://github.com/POV-Ray/povray.git
 wget ftp://ftp.mplayerhq.hu/MPlayer/releases/MPlayer-1.3.0.tar.xz
 ```
 
-* Untar the file
+* Extract the file
 
 * Compile and install by:
 ```
